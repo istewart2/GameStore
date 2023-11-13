@@ -11,6 +11,8 @@ builder.Services.AddSqlServer<GameStoreContext>(connectionString);
 
 var app = builder.Build();
 
+app.Services.InitializeDb();
+
 app.MapGamesEndpoints();
 
 app.Run();
