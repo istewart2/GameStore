@@ -13,32 +13,32 @@ namespace GameStore.Api.Repositories
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Game> GetAll()
+        public async Task<IEnumerable<Game>> GetAllAsync()
         {
-            return _dbContext.Games.AsNoTracking().ToList();
+            return await _dbContext.Games.AsNoTracking().ToListAsync();
         }
 
-        public Game? GetById(int id)
+        public async Task<Game?> GetByIdAsync(int id)
         {
-            return _dbContext.Games.Find(id);
+            return await _dbContext.Games.FindAsync(id);
         }
 
-        public void Create(Game game)
+        public async Task CreateAsync(Game game)
         {
-            _dbContext.Games.Add(game);
-            _dbContext.SaveChanges();
+            await _dbContext.Games.AddAsync(game);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void Update(Game updatedGame)
+        public async Task UpdateAsync(Game updatedGame)
         {
             _dbContext.Games.Update(updatedGame);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            _dbContext.Games.Where(game => game.Id == id)
-                            .ExecuteDelete();
+            await _dbContext.Games.Where(game => game.Id == id)
+                            .ExecuteDeleteAsync();
         }
     }
 }
